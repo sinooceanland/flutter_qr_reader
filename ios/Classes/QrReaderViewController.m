@@ -53,7 +53,7 @@
 - (void)onMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result
 {
     if ([call.method isEqualToString:@"flashlight"]) {
-        [self setFlashlight];
+        result([NSNumber numberWithBool:[self setFlashlight]]);
     }else if ([call.method isEqualToString:@"startCamera"]) {
         [self startReading];
     } else if ([call.method isEqualToString:@"stopCamera"]) {
@@ -114,7 +114,7 @@
 }
 
 // 手电筒开关
-- (void) setFlashlight
+- (BOOL) setFlashlight
 {
     [captureDevice lockForConfiguration:nil];
     if (isOpenFlash == NO) {
@@ -126,6 +126,7 @@
     }
     
     [captureDevice unlockForConfiguration];
+    return isOpenFlash;
 }
 
 @end
